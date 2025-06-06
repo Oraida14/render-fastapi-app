@@ -1,0 +1,405 @@
+body.page-main {
+    background-color: black; /* Fondo negro para áreas no cubiertas por la imagen */
+    background-image: url('/static/semi1.png'); /* O 'img/mapa.png' si está en carpeta img */
+    background-size: 60%;
+    background-position: left 10px top 30px; 
+    
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Asegura que ocupe toda la pantalla */
+}
+
+
+#cilindroNivel {
+  position: absolute;
+  background-color: rgba(32, 142, 146, 0);
+  width: 8px;
+  bottom: 43.5vh; /* <--- ajusta este valor en lugar de usar top */
+  left: 44.25vw;
+  transition: height 0.5s ease, background-color 0.5s ease;
+  height: 50;
+  transition: height 1.5s ease-in-out;
+  z-index: 10;
+  border: 2px solid #fcebf700;
+  border-radius: 10px 10px 0 0;
+   transform: translateX(-50%) rotate(-1.2deg); /* <-- Ajusta el ángulo aquí */
+}
+
+/* Estilos para el texto "Última lectura" */
+#fechaDatos {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  color: #FFD700;        /* Amarillo dorado para buen contraste */
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  background-color: rgba(58, 141, 219, 0.349); /* Fondo semitransparente negro */
+  padding: 6px 12px;
+  border-radius: 8px;
+  z-index: 20;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Ajuste para el canvas de la gráfica */
+canvas#graficaEntradaSalida {
+  position: absolute;
+  top: 43%;
+  right: 5%;
+  width: 600px;  /* aquí es ancho visible */
+  height: 300px; /* aquí es alto visible */
+  border: 2px solid #a19f94;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 0 15px #ffd90057;
+  z-index: 10;
+}
+
+.flecha-nivel {
+  position: absolute;
+  background-color: rgba(0, 17, 255, 0.781);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  text-align: center;
+  transform: translateY(50%);
+  left: -120px; /* Ajusta según necesidad */
+  z-index: 10;
+}
+
+/* Flecha apuntando a la izquierda */
+.flecha-nivel::before {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid rgba(0, 17, 255, 0.75); /* color igual al fondo */
+}
+
+
+
+#datoNivel {
+  position: absolute;
+  left: 42%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  background-color: transparent;  /* Elimina fondo amarillo */
+  padding: 0;
+  font-size: 14px;
+  z-index: 12;
+  white-space: nowrap;
+  width: auto;
+  text-align: center;
+  pointer-events: none;
+  transition: bottom 0.5s ease;
+  box-shadow: inset 0 0 5px #fffb00;
+  border: 1px solid rgba(0, 0, 0, 0.452);
+
+
+  height: 1;  /* inicia sin altura */
+  max-height: 90px;  /* o la altura real de tu tanque en imagen */
+}
+
+
+
+.medidor-container {
+  position: absolute;
+  width: 280px;       /* puedes ajustar */
+  height: 280px;      /* puedes ajustar */
+  text-align: center;
+  z-index: 10;
+}
+
+.medidor-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.medidor-valor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-shadow: 1px 1px 4px #000;
+  pointer-events: none;
+}
+
+.alerta-visual {
+  position: absolute;
+  top: 10vh;     /* Puedes moverlo según prefieras */
+  left: 82%;     /* Puedes moverlo según prefieras */
+  font-size: 2.4em;
+  display: none;
+  animation: parpadeo 1.5s infinite;
+  color: red;
+  z-index: 20;
+  pointer-events: none;
+}
+
+@keyframes parpadeo {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.texto-alerta {
+  font-size: 0.8em;
+  margin-left: 10px;
+  color: white;
+}
+
+
+
+
+
+#alertaNivel {
+  position: absolute;
+  top: -30px; /* por encima del cilindro */
+  left: -390%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  color: rgb(102, 102, 73);
+  background: rgb(235, 0, 0);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: none; /* oculto por defecto */
+  z-index: 12;
+  width: 8vw;
+  height: 3vh;
+}
+
+
+/* body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 5vw 5vh; /* Rejilla cada 5vw x 5vh 
+  pointer-events: none;
+  z-index: 9999;
+} */
+
+
+
+/*.circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: gray;
+    transition: background-color 0.3s;
+}
+
+.circle.green {
+    background-color: green;
+}
+
+.circle.red {
+    background-color: red;
+}
+
+.circle.gray {
+    background-color: gray;
+}
+
+.blink {
+    animation: blink-animation 1s steps(2, start) infinite;
+}
+
+@keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}*/
+
+.data-label {
+    position: absolute;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    color: rgb(3, 3, 3);
+    background: rgba(255, 251, 0, 0.945);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+
+/* Teenage Engineering [EP-133 K.O. II] - Buttons */
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 1.25em;
+  }
+  
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5em;
+  }
+  .button_pair {
+    display: flex;
+    column-gap: 1.5em;
+  }
+  .button_pair1 {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.9em;
+  }
+  
+  
+  /* boton pozo 25*/
+  .button1 {
+    width: 5.7em;
+    height: 5.7em;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #bd867a;
+    box-shadow: rgba(134, 146, 82, 0.726) 10px 10px 8px, #866e62 2px 2px 10px 0px inset,
+      #fffcfc -4px -4px 1px 0px inset;
+    font-family: Montserrat;
+    transition: 0.1s ease-in-out;
+    position: fixed; /* <- AÑADIR ESTA LÍNEA */
+    top: 480px; /* Coloca el botón a 20px desde la parte superior */
+    left: 1410px; /* Colócalo a 20px desde la parte izquierda */
+    z-index: 10;
+}
+
+/* boton pozo 263  */
+  .button2 {
+    width: 5.7em;
+    height: 5.7em;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #bd867a;
+    box-shadow: rgba(134, 146, 82, 0.726) 10px 10px 8px, #866e62 2px 2px 10px 0px inset,
+      #fffcfc -4px -4px 1px 0px inset;
+    cursor: pointer;
+    font-family: Montserrat;
+    transition: 0.1s ease-in-out;
+    position: fixed;
+    top: 480px; /* Coloca el botón a 20px desde la parte superior */
+    left: 1280px; /* Colócalo a 20px desde la parte izquierda */
+    z-index: 10;
+  }
+  .svg1 {
+    fill: #5f5f5f;
+    width: 25px;
+    height: 25px;
+    transition: 0.1s ease-in-out;
+  }
+  .svg2 {
+    fill: #5f5f5f;
+    width: 25px;
+    height: 25px;
+    transition: 0.1s ease-in-out;
+  }
+  
+  /* boton analisis */
+  .button3 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 5.7em;
+    height: 5.7em;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #bd867a;
+    box-shadow: rgba(134, 146, 82, 0.726) 10px 10px 8px, #866e62 2px 2px 10px 0px inset,
+      #fffcfc -4px -4px 1px 0px inset;
+    cursor: pointer;
+    font-family: Montserrat;
+    transition: 0.1s ease-in-out;
+    position: fixed;
+    top: 480px; /* Coloca el botón a 20px desde la parte superior */
+    left: 1680px; /* Colócalo a 20px desde la parte izquierda */
+    z-index: 10;
+  }
+
+  /* boton  mosaico */
+  .button4 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 5.7em;
+    height: 5.7em;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #bd867a;
+    box-shadow: rgba(134, 146, 82, 0.726) 10px 10px 8px, #866e62 2px 2px 10px 0px inset,
+      #fffcfc -4px -4px 1px 0px inset;
+    cursor: pointer;
+    font-family: Montserrat;
+    transition: 0.1s ease-in-out;
+    position: fixed;
+    top: 480px; /* Coloca el botón a 20px desde la parte superior */
+    left: 1540px; /* Colócalo a 20px desde la parte izquierda */
+    z-index: 10;
+    
+  }
+  
+  .button_text {
+    color: white;
+    padding-top: 0.9em;
+    letter-spacing: 0.075em;
+    font-size: 0.85em;
+    transition: 0.1s ease-in-out;
+  }
+  
+  .text {
+    font-family: Montserrat;
+    text-align: center;
+    font-size: 0.65em;
+  }
+  
+  
+ 
+  .button3:active {
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px, inset 0.5px 0.5px 4px #000000,
+      #0787ff -3.2px -3.2px 8px 0px inset;
+  }
+  .button3:active .button_text {
+    transform: translateY(0.5px);
+  }
+  .button4:active {
+    box-shadow: rgba(0, 0, 0, 0.377) 0px 0px 0px, inset 0.5px 0.5px 4px #000000,
+      #0787ff -3.2px -3.2px 8px 0px inset;
+  }
+  .button4:active .button_text {
+    transform: translateY(0.5px);
+  }
+  /* Otras clases de botones también pueden tener un z-index alto */
+.button1, .button2, .button3, .button4 {
+    z-index: 10; /* Aseguramos que todos los botones estén por encima */
+}
+
+.button1:active,
+.button2:active {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.685),
+                inset -2px -2px 5px rgb(24, 74, 212);
+    transform: translateY(1px);
+}

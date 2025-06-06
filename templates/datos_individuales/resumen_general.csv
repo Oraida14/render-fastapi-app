@@ -1,0 +1,6 @@
+Pozo,Nivel_1_Promedio,Nivel_1_Mínimo,Nivel_1_Máximo,Nivel_1_Desviación estándar,Nivel_1_Tendencia,Gasto_Instantaneo_Promedio,Gasto_Instantaneo_Mínimo,Gasto_Instantaneo_Máximo,Gasto_Instantaneo_Desviación estándar,Gasto_Instantaneo_Tendencia,Presion_Instantanea_Promedio,Presion_Instantanea_Mínimo,Presion_Instantanea_Máximo,Presion_Instantanea_Desviación estándar,Presion_Instantanea_Tendencia,Volumen_Total_m3,Presión_Anómala_Cant
+tanque3cantos,2.84,1.77,3.59,0.36,Ascendente,40.99,-30.0,43.0,9.12,Estable,38.54,3.0,45.0,3.12,Estable,11815.83,0.0
+p263,,,,,,27.22,0.0,52.0,22.11,Estable,10.04,0.0,57.0,1.39,Estable,12743.3,0.0
+p25,2.8,1.7,3.59,0.4,Estable,0.0,0.0,0.0,0.0,Estable,4.94,0.0,5.0,0.55,Estable,0.0,0.0
+reb62,,,,,,0.0,0.0,0.0,0.0,Estable,38.53,3.0,45.0,3.48,Estable,,
+reb62a,,,,,,41.11,-1.0,43.0,8.83,Estable,38.53,3.0,45.0,3.48,Estable,,
