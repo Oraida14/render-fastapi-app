@@ -8,7 +8,8 @@ const labelMappings = {
 
 const MAX_CYLINDER_HEIGHT = 5;
 const MIN_CYLINDER_HEIGHT = 0;
-const API_BASE_URL = 'http://192.168.100.13:8001';
+const API_BASE_URL = 'https://render-fastapi-app.onrender.com';
+
 
 
 async function fetchAPIData() {
