@@ -30,8 +30,7 @@
   <div id="fechaDatos">Última lectura: ---</div>
 
   <!-- Gráficas -->
-  <canvas id="graficaEntradaSalida"></canvas>
-  <canvas id="graficaNivel" width="600" height="300"></canvas>
+  
 
   <!-- Control manual -->
   <input type="range" id="nivelSlider" min="0" max="5" step="0.1" value="5"
@@ -79,32 +78,7 @@ async function obtenerDatos() {
     });
 
     // Historial de salida rebombeo
-    const resSalida = await fetch("/historial/salida-rebombeo");
-    const datosSalida = await resSalida.json();
-    const labelsSalida = datosSalida.historial.map(d => d.fecha_hora);
-    const datosSalidaY = datosSalida.historial.map(d => d.salida_total);
-
-    new Chart(document.getElementById("graficaEntradaSalida").getContext("2d"), {
-      type: "line",
-      data: {
-        labels: labelsSalida,
-        datasets: [{
-          label: "Salida total (L/s)",
-          data: datosSalidaY,
-          borderColor: "red",
-          fill: false,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          x: { display: true },
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
+   
   } catch (error) {
     console.error("Error al obtener datos:", error);
   }
