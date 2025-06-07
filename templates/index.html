@@ -50,32 +50,7 @@ async function obtenerDatos() {
 
     ajustarCilindro(resumen.nivel);
 
-    // Historial de nivel
-    const resNivel = await fetch("/historial/tanque3cantos");
-    const datosNivel = await resNivel.json();
-    const labelsNivel = datosNivel.historial.map(d => d.fecha_hora);
-    const datosNivelY = datosNivel.historial.map(d => d.Nivel_1);
-
-    new Chart(document.getElementById("graficaNivel").getContext("2d"), {
-      type: "line",
-      data: {
-        labels: labelsNivel,
-        datasets: [{
-          label: "Nivel (m)",
-          data: datosNivelY,
-          borderColor: "blue",
-          fill: false,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          x: { display: true },
-          y: { beginAtZero: true }
-        }
-      }
-    });
+   
 
     // Historial de salida rebombeo
    
